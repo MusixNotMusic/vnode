@@ -1,0 +1,22 @@
+{
+  "name": "vnode",
+  "version": "1.0.0",
+  "description": "vnode test, vnode snabbdom, 3pm clock drink tea, ok? a pretty cap, ok?",
+  "main": "index.js",
+  "scripts": {
+    "test": "test none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "vnode",
+    "snabbdom"
+  ],
+  "author": "musix7",
+  "license": "MIT",
+  "dependencies": {
+    "snabbdom": "^3.0.2"
+  }
+}
