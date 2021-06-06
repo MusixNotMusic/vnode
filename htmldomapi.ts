@@ -1,9 +1,9 @@
 export interface DOMAPI {
-    createElement: (tagName: any, options?: ElementCreationOptions) => HTMLElement;
-    createElementNS: ( namespaceURI: string, tagName: any, options?: ElementCreationOptions) => Element;
+    createElement: (tagName: any, Options: ElementCreationOptions) => HTMLElement;
+    createElementNS: (namespaceURI: string, qualifiedName: string, options?: ElementCreationOptions) => Element;
     createTextNode: (text: string) => Text;
     createComment: (text: string) => Comment;
-    insertBefore: (parentNode: Node, newNode: Node, referenceNode: Node | null) => void;
+    insertBefore: (parentNode: Node, newNode: Node, refrenceNode: Node | null) => void;
     removeChild: (node: Node, child: Node) => void;
     appendChild: (node: Node, child: Node) => void;
     parentNode: (node: Node) => Node | null;
@@ -13,14 +13,14 @@ export interface DOMAPI {
     getTextContent: (node: Node) => string | null;
     isElement: (node: Node) => node is Element;
     isText: (node: Node) => node is Text;
-    isComment: (node: Node) => node is Comment;
+    isComment: (node: Node) => node is Comment; 
 }
 
 function createElement(
     tagName: any,
     options?: ElementCreationOptions
 ): HTMLElement {
-    return document.createElement(tagName, options)
+    return document.createElement(tagName, options);
 }
 
 function createElementNS(
@@ -28,7 +28,7 @@ function createElementNS(
     qualifiedName: string,
     options?: ElementCreationOptions
 ): Element {
-    return document.createElementNS(namespaceURI, qualifiedName, options)
+    return document.createElementNS(namespaceURI, qualifiedName, options);
 }
 
 function createTextNode(text: string): Text {
@@ -47,20 +47,20 @@ function insertBefore(
     parentNode.insertBefore(newNode, referenceNode)
 }
 
-function removeChild(): void {
-
+function removeChild(node: Node, child: Node): void {
+    node.removeChild(child)
 }
 
 function appendChild(node: Node, child: Node): void {
-
+    node.appendChild(child)
 }
 
 function parentNode(node: Node): Node | null {
-    return node.parentNode
+    return node.parentNode;
 }
 
 function nextSibling(node: Node): Node | null {
-    return node.nextSibling;
+    return node.nextSibling
 }
 
 function tagName(elm: Element): string {
@@ -68,7 +68,7 @@ function tagName(elm: Element): string {
 }
 
 function setTextContent(node: Node, text: string | null): void {
-    node.textContent = text;
+    node.textContent = text
 }
 
 function getTextContent(node: Node): string | null {
@@ -80,11 +80,11 @@ function isElement(node: Node): node is Element {
 }
 
 function isText(node: Node): node is Text {
-    return node.nodeType === 3
+    return node.nodeType === 3;
 }
 
 function isComment(node: Node): node is Comment {
-    return node.nodeType === 8
+    return node.nodeType === 8;
 }
 
 export const htmlDomApi: DOMAPI = {
@@ -102,5 +102,5 @@ export const htmlDomApi: DOMAPI = {
     getTextContent,
     isElement,
     isText,
-    isComment
+    isComment,
 }
