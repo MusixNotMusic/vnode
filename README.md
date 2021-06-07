@@ -1,5 +1,5 @@
-# Snabbdom VNode
-## VNode & Node
+# [Snabbdom](https://github.com/snabbdom/snabbdom) VNode
+## VNode & Node(RNode or Real Node)
 
 ### 1、VNode 是 Element Node 抽象，ElementNode 主要节点类型。
 本质：节点本身带有特性
@@ -38,7 +38,8 @@ isElement| 是否是元素
 isText| 是否是文本元素
 isComment| 是否是注解元素
 
-4、将ElementNode抽象为VNode，VNode有哪些属性
+### 4、将ElementNode抽象为VNode，VNode有哪些属性
+说明：vnode的真实样子
 ```ts
 interface VNode {
     sel: string | undefined; // tagName + id + classes.join('.') ==> div#id.class1.class2...
@@ -68,6 +69,40 @@ interface VNodeData {
     is?: string; // for custom elements v1
     [key: string]: any; // for any other 3rd party module
 }
+```
+```ts 
+function vnode(
+  sel: string | undefined,
+  data: any | undefined,
+  children: Array<VNode | string> | undefined,
+  text: string | undefined,
+  elm: Element | Text | undefined
+): VNode {
+  const key = data === undefined ? undefined : data.key;
+  return { sel, data, children, text, elm, key };
+}
+```
+
+### 5、ElementNode RNode [转](https://github.com/MusixNotMusic/vnode/blob/master/vnode.ts) VNode 
+说明：真实节点 转化为 虚拟节点
+```ts
+function toVnode(node: Node, domApi?: DOMAPI): VNode {
+    let text: string;
+    if (isElement(node)) {
+        let sel = tagName + id + classes.split('.') // div#id.class1.class2...
+        let attrs = node.attrs;
+        let children = node.childreNodes;
+        // Todo attrs 赋值
+        // Todo children 递归
+        return vnode(sel, { attrs }, children, undefined, node)
+    } else if (isText(node)) {  
+        return vnode(undefined, undefined, undefined, text, node)
+    } else if (isComment(node)) {
+        return vnode("!", {}, [], text, node as any)
+    } else {
+        return vnode("", {}, [], undefined, node as any)
+    }
+} 
 ```
 
 
