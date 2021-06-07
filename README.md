@@ -39,7 +39,7 @@ isText| 是否是文本元素
 isComment| 是否是注解元素
 
 ### 4、将ElementNode抽象为VNode，VNode有哪些属性
-说明：vnode的真实样子
+说明：vnode的结构
 ```ts
 interface VNode {
     sel: string | undefined; // tagName + id + classes.join('.') ==> div#id.class1.class2...
